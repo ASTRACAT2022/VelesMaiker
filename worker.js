@@ -874,291 +874,265 @@ function get\u0076\u006c\u0065\u0073\u0073Config(userID, hostName) {
     overflow: auto;
     word-wrap: break-word;
 }
+body {
+    font-family: Arial, sans-serif;
+}
+@media (max-width: 600px) {
+    .limited-width {
+        max-width: 150px;
+    }
+}
 </style>
 </head>
 <script>
 function copyToClipboard(text) {
-  const input = document.createElement('textarea');
-  input.style.position = 'fixed';
-  input.style.opacity = 0;
-  input.value = text;
-  document.body.appendChild(input);
-  input.select();
-  document.execCommand('Copy');
-  document.body.removeChild(input);
-  alert('Скопировать в буфер обмена');
+    const input = document.createElement('textarea');
+    input.style.position = 'fixed';
+    input.style.opacity = 0;
+    input.value = text;
+    document.body.appendChild(input);
+    input.select();
+    document.execCommand('Copy');
+    document.body.removeChild(input);
+    alert('Скопировано в буфер обмена');
 }
 </script>
-`;
-if (hostName.includes("workers.dev")) {
-return `
-<br>
-<br>
-${displayHtml}
+
+${hostName.includes("workers.dev") ? `
 <body>
-<div class="container">
+<div class="container mt-4">
     <div class="row">
         <div class="col-md-12">
-            <h1>Cloudflare-workers/pages-\u0076\u006c\u0065\u0073\u0073 Версия V25.5.4</h1>
-	    <hr>
+            <h1>ASTRACAT Vless Proxy</h1>
+            <p>Официальный сайт: <a href="https://astracat.vercel.app" target="_blank">astracat.vercel.app</a></p>
+            <p>Telegram-канал: <a href="https://t.me/astracatui" target="_blank">@astracatui</a></p>
+            <hr>
             <p>${noteshow}</p>
             <hr>
-	    <hr>
-	    <hr>
-            <br>
-            <br>
-            <h3>1：CF-workers-\u0076\u006c\u0065\u0073\u0073+ws节点</h3>
-			<table class="table">
-				<thead>
-					<tr>
-						<th>Особенности узла：</th>
-						<th>Связь с одним узлом выглядит следующим образом：</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr>
-						<td class="limited-width">Отключил шифрование по протоколу TLS, игнорируя блокировку доменных имен</td>
-						<td class="limited-width">${w\u0076\u006c\u0065\u0073\u0073ws}</td>
-						<td><button class="btn btn-primary" onclick="copyToClipboard('${w\u0076\u006c\u0065\u0073\u0073ws}')">Нажмите на ссылку скопировать</button></td>
-					</tr>
-				</tbody>
-			</table>
-            <h5>客户端参数如下：</h5>
+            <h3>1. Узел Cloudflare Workers VLESS + WebSocket (без TLS)</h3>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Особенности узла</th>
+                        <th>Ссылка на узел</th>
+                        <th>Действие</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="limited-width">Шифрование TLS отключено, игнорирует блокировку доменов</td>
+                        <td class="limited-width">${wvlessws}</td>
+                        <td><button class="btn btn-primary" onclick="copyToClipboard('${wvlessws}')">Скопировать ссылку</button></td>
+                    </tr>
+                </tbody>
+            </table>
+            <h5>Параметры клиента:</h5>
             <ul>
-                <li>Адрес (address)：Пользовательское доменное имя или предпочтительное доменное имя, или предпочтительный IP-адрес, или обратная генерация IP</li>
-                <li>Порт(port)：7 http Порт может быть выбран произвольно(80、8080、8880、2052、2082、2086、2095)，Или соответствующий порт обратной генерации IP-адреса</li>
-                <li>Токен ID(uuid)：${userID}</li>
-                <li>Сеть(network)：ws 或者 websocket</li>
-                <li>Хост(host)：${hostName}</li>
-                <li>Патч(path)：/?ed=2560</li>
-		<li>传输安全(TLS)：关闭</li>
+                <li><strong>Адрес:</strong> Пользовательский домен, предпочтительный домен, IP-адрес или сгенерированный IP</li>
+                <li><strong>Порт:</strong> HTTP-порты (80, 8080, 8880, 2052, 2082, 2086, 2095) или порт сгенерированного IP</li>
+                <li><strong>UUID:</strong> ${userID}</li>
+                <li><strong>Сеть:</strong> WebSocket (ws)</li>
+                <li><strong>Хост:</strong> ${hostName}</li>
+                <li><strong>Путь:</strong> /?ed=2560</li>
+                <li><strong>TLS:</strong> Отключено</li>
             </ul>
             <hr>
-			<hr>
-			<hr>
-            <br>
-            <br>
-            <h3>2：CF-workers-\u0076\u006c\u0065\u0073\u0073+ws+tls</h3>
-			<table class="table">
-				<thead>
-					<tr>
-						<th>Особенности узла：</th>
-						<th>Связь с одним узлом выглядит следующим образом：</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr>
-						<td class="limited-width"><br>Шифрование по протоколу TLS включено, если клиент поддерживает сегментирование (Fragment)Функцию, которую рекомендуется включить, чтобы предотвратить блокировку доменного имени</td>
-						<td class="limited-width">${p\u0076\u006c\u0065\u0073\u0073wstls}</td>	
-						<td><button class="btn btn-primary" onclick="copyToClipboard('${p\u0076\u006c\u0065\u0073\u0073wstls}')">Нажмите на ссылку скопировать</button></td>
-					</tr>
-				</tbody>
-			</table>
-            <h5>Параметры клиента：</h5>
+            <h3>2. Узел Cloudflare Workers VLESS + WebSocket + TLS</h3>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Особенности узла</th>
+                        <th>Ссылка на узел</th>
+                        <th>Действие</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="limited-width">Шифрование TLS включено. Рекомендуется включить функцию сегментации (Fragment) в клиенте для предотвращения блокировки домена</td>
+                        <td class="limited-width">${pvlesswstls}</td>
+                        <td><button class="btn btn-primary" onclick="copyToClipboard('${pvlesswstls}')">Скопировать ссылку</button></td>
+                    </tr>
+                </tbody>
+            </table>
+            <h5>Параметры клиента:</h5>
             <ul>
-                <li>Адрес клиента(address)：Настроенное доменное имя или предпочтительное доменное имя, или предпочтительный IP-адрес, или обратный IP-адрес</li>
-                <li>Порт(port)：6 https Порт может быть выбран произвольно(443、8443、2053、2083、2087、2096)，Или соответствующий порт обратной генерации IP-адреса</li>
-                <li>用户ID(uuid)：${userID}</li>
-                <li>Тип(network)：ws  websocket</li>
-                <li>Хост(host)：${hostName}</li>
-                <li>Патчьpath)：/?ed=2560</li>
-                <li>Маскировка(TLS)：开启</li>
-                <li>Формат(allowlnsecure)：false</li>
-			</ul>
-			<hr>
-			<hr>
-			<hr>
-			<br>	
-			<br>
-			<h3>3：聚合通用、Clash-meta、Sing-box订阅链接如下：</h3>
-			<hr>
-			<p>Внимание：<br>1、по умолчанию каждая ссылка для подписки содержит TLS + не-TLS, в общей сложности 13 портовых узлов <br>2、Текущее доменное имя workers используется в качестве ссылки для подписки，Необходимо подписаться на обновления через агента<br>3、Если используемый клиент не поддерживает функцию сегментирования, узел TLS недоступен</p>
-			<hr>
-
-
-			<table class="table">
-					<thead>
-						<tr>
-							<th>Агрегируйте универсальные ссылки для общего доступа (могут быть напрямую импортированы в клиент)：</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td><button class="btn btn-primary" onclick="copyToClipboard('${wk\u0076\u006c\u0065\u0073\u0073share}')">Нажмите на ссылку скопировать</button></td>
-						</tr>
-					</tbody>
-				</table>
-
-
-   
-			<table class="table">
-					<thead>
-						<tr>
-							<th>Универсальная ссылка на подписку：</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td class="limited-width">${ty}</td>	
-							<td><button class="btn btn-primary" onclick="copyToClipboard('${ty}')">Нажмите на ссылку скопировать</button></td>
-						</tr>
-					</tbody>
-				</table>	
-
-				<table class="table">
-						<thead>
-							<tr>
-								<th>Ссылка на подписку Clash-meta：</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<td class="limited-width">${cl}</td>	
-								<td><button class="btn btn-primary" onclick="copyToClipboard('${cl}')">Нажмите на ссылку скопировать</button></td>
-							</tr>
-						</tbody>
-					</table>
-
-					<table class="table">
-					<thead>
-						<tr>
-							<th>Ссылка на подписку Sing-box：</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td class="limited-width">${sb}</td>	
-							<td><button class="btn btn-primary" onclick="copyToClipboard('${sb}')">Нажмите на ссылку скопировать</button></td>
-						</tr>
-					</tbody>
-				</table>
-				<br>
-				<br>
+                <li><strong>Адрес:</strong> Пользовательский домен, предпочтительный домен, IP-адрес или сгенерированный IP</li>
+                <li><strong>Порт:</strong> HTTPS-порты (443, 8443, 2053, 2083, 2087, 2096) или порт сгенерированного IP</li>
+                <li><strong>UUID:</strong> ${userID}</li>
+                <li><strong>Сеть:</strong> WebSocket (ws)</li>
+                <li><strong>Хост:</strong> ${hostName}</li>
+                <li><strong>Путь:</strong> /?ed=2560</li>
+                <li><strong>TLS:</strong> Включено</li>
+                <li><strong>Проверка сертификата:</strong> Отключена (allowInsecure: false)</li>
+            </ul>
+            <hr>
+            <h3>3. Ссылки на подписку (Clash Meta, Sing-box, универсальная)</h3>
+            <p><strong>Примечание:</strong><br>
+                1. Каждая подписка по умолчанию включает узлы с TLS и без TLS (всего 13 портов).<br>
+                2. Используйте домен workers.dev для подписки и обновляйте через прокси-клиент.<br>
+                3. Если клиент не поддерживает сегментацию (Fragment), узлы с TLS могут быть недоступны.
+            </p>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Универсальная ссылка (для прямого импорта в клиент)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><button class="btn btn-primary" onclick="copyToClipboard('${wkvlessshare}')">Скопировать ссылку</button></td>
+                    </tr>
+                </tbody>
+            </table>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Универсальная подписка</th>
+                        <th>Действие</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="limited-width">${ty}</td>
+                        <td><button class="btn btn-primary" onclick="copyToClipboard('${ty}')">Скопировать ссылку</button></td>
+                    </tr>
+                </tbody>
+            </table>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Подписка Clash Meta</th>
+                        <th>Действие</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="limited-width">${cl}</td>
+                        <td><button class="btn btn-primary" onclick="copyToClipboard('${cl}')">Скопировать ссылку</button></td>
+                    </tr>
+                </tbody>
+            </table>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Подписка Sing-box</th>
+                        <th>Действие</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="limited-width">${sb}</td>
+                        <td><button class="btn btn-primary" onclick="copyToClipboard('${sb}')">Скопировать ссылку</button></td>
+                    </tr>
+                </tbody>
+            </table>
+            <br><br>
         </div>
     </div>
 </div>
 </body>
-`;
-  } else {
-    return `
-<br>
-<br>
-${displayHtml}
+` : `
 <body>
-<div class="container">
+<div class="container mt-4">
     <div class="row">
         <div class="col-md-12">
-            <h1>Cloudflare-workers/pages-\u0076\u006c\u0065\u0073\u0073Версия V25.5.4</h1>
-			<hr>
+            <h1>ASTRACAT Vless Proxy</h1>
+            <p>Официальный сайт: <a href="https://astracat.vercel.app" target="_blank">astracat.vercel.app</a></p>
+            <p>Telegram-канал: <a href="https://t.me/astracatui" target="_blank">@astracatui</a></p>
+            <hr>
             <p>${noteshow}</p>
             <hr>
-			<hr>
-			<hr>
-            <br>
-            <br>
-            <h3>1：CF-pages/workers/Пользовательский домен-\u0076\u006c\u0065\u0073\u0073+ws+tls</h3>
-			<table class="table">
-				<thead>
-					<tr>
-						<th>Особенности узла：</th>
-						<th>Связь с одним узлом выглядит следующим образом：</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr>
-						<td class="limited-width">启用了TLS加密，<br>如果客户端支持分片(Fragment)Функция, которая может быть включена для предотвращения блокировки доменного имени</td>
-						<td class="limited-width">${p\u0076\u006c\u0065\u0073\u0073wstls}</td>
-						<td><button class="btn btn-primary" onclick="copyToClipboard('${p\u0076\u006c\u0065\u0073\u0073wstls}')">Нажмите на ссылку скопировать</button></td>
-					</tr>
-				</tbody>
-			</table>
-            <h5>客户端参数如下：</h5>
+            <h3>1. Узел Cloudflare Pages/Workers/Кастомный домен VLESS + WebSocket + TLS</h3>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Особенности узла</th>
+                        <th>Ссылка на узел</th>
+                        <th>Действие</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="limited-width">Шифрование TLS включено. Рекомендуется включить функцию сегментации (Fragment) в клиенте для предотвращения блокировки домена</td>
+                        <td class="limited-width">${pvlesswstls}</td>
+                        <td><button class="btn btn-primary" onclick="copyToClipboard('${pvlesswstls}')">Скопировать ссылку</button></td>
+                    </tr>
+                </tbody>
+            </table>
+            <h5>Параметры клиента:</h5>
             <ul>
-                <li>客户端地址(address)：Настроенное доменное имя или предпочтительное доменное имя, или предпочтительный IP-адрес, или обратный IP-адрес</li>
-                <li>Порт(port)：6 https Порт может быть выбран произвольно(443、8443、2053、2083、2087、2096)，Или соответствующий порт обратной генерации IP-адреса</li>
-                <li>Токен ID(uuid)：${userID}</li>
-                <li>Протокол(network)：ws 或者 websocket</li>
-                <li>Поддельное доменное имя(host)：${hostName}</li>
-                <li>Канал(path)：/?ed=2560</li>
-                <li>Зашита TLS Активна</li>
-                <li>Пропустить проверку сертификата(allowlnsecure)：false</li>
-			</ul>
+                <li><strong>Адрес:</strong> Пользовательский домен, предпочтительный домен, IP-адрес или сгенерированный IP</li>
+                <li><strong>Порт:</strong> HTTPS-порты (443, 8443, 2053, 2083, 2087, 2096) или порт сгенерированного IP</li>
+                <li><strong>UUID:</strong> ${userID}</li>
+                <li><strong>Сеть:</strong> WebSocket (ws)</li>
+                <li><strong>Хост:</strong> ${hostName}</li>
+                <li><strong>Путь:</strong> /?ed=2560</li>
+                <li><strong>TLS:</strong> Включено</li>
+                <li><strong>Проверка сертификата:</strong> Отключена (allowInsecure: false)</li>
+            </ul>
             <hr>
-			<hr>
-			<hr>
-            <br>
-            <br>
-			<h3>2：Ниже приведены общие ссылки на агрегацию и подписку Clash-meta、Sing-box：</h3>
-			<hr>
-			<p>Примечание: Следующая ссылка для подписки содержит только 6 узлов с портами TLS</p>
-			<hr>
-
-
-			<table class="table">
-					<thead>
-						<tr>
-							<th>Агрегируйте универсальные ссылки для общего доступа (могут быть напрямую импортированы в клиент)：</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td><button class="btn btn-primary" onclick="copyToClipboard('${pg\u0076\u006c\u0065\u0073\u0073share}')">Нажмите на ссылку скопировать</button></td>
-						</tr>
-					</tbody>
-				</table>
-
-
-
-			<table class="table">
-					<thead>
-						<tr>
-							<th>Универсальная подписка：</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td class="limited-width">${pty}</td>	
-							<td><button class="btn btn-primary" onclick="copyToClipboard('${pty}')">Нажмите на ссылку скопировать</button></td>
-						</tr>
-					</tbody>
-				</table>	
-
-				<table class="table">
-						<thead>
-							<tr>
-								<th>Clash-metaСсылка на подписку：</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<td class="limited-width">${pcl}</td>	
-								<td><button class="btn btn-primary" onclick="copyToClipboard('${pcl}')">Нажмите на ссылку скопировать</button></td>
-							</tr>
-						</tbody>
-					</table>
-
-					<table class="table">
-					<thead>
-						<tr>
-							<th>Sing-boxСсылка на подписку：</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td class="limited-width">${psb}</td>	
-							<td><button class="btn btn-primary" onclick="copyToClipboard('${psb}')">Нажмите на ссылку скопировать</button></td>
-						</tr>
-					</tbody>
-				</table>
-				<br>
-				<br>
+            <h3>2. Ссылки на подписку (Clash Meta, Sing-box, универсальная)</h3>
+            <p><strong>Примечание:</strong> Подписка включает только 6 узлов с портами TLS.</p>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Универсальная ссылка (для прямого импорта в клиент)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><button class="btn btn-primary" onclick="copyToClipboard('${pgvlessshare}')">Скопировать ссылку</button></td>
+                    </tr>
+                </tbody>
+            </table>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Универсальная подписка</th>
+                        <th>Действие</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="limited-width">${pty}</td>
+                        <td><button class="btn btn-primary" onclick="copyToClipboard('${pty}')">Скопировать ссылку</button></td>
+                    </tr>
+                </tbody>
+            </table>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Подписка Clash Meta</th>
+                        <th>Действие</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="limited-width">${pcl}</td>
+                        <td><button class="btn btn-primary" onclick="copyToClipboard('${pcl}')">Скопировать ссылку</button></td>
+                    </tr>
+                </tbody>
+            </table>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Подписка Sing-box</th>
+                        <th>Действие</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="limited-width">${psb}</td>
+                        <td><button class="btn btn-primary" onclick="copyToClipboard('${psb}')">Скопировать ссылку</button></td>
+                    </tr>
+                </tbody>
+            </table>
+            <br><br>
         </div>
     </div>
 </div>
 </body>
-`;
-  }
-}
+`}
 
 function gettyConfig(userID, hostName) {
 	const \u0076\u006c\u0065\u0073\u0073share = btoa(`\u0076\u006c\u0065\u0073\u0073\u003A//${userID}\u0040${IP1}:${PT1}?encryption=none&security=none&fp=randomized&type=ws&host=${hostName}&path=%2F%3Fed%3D2560#CF_V1_${IP1}_${PT1}\n\u0076\u006c\u0065\u0073\u0073\u003A//${userID}\u0040${IP2}:${PT2}?encryption=none&security=none&fp=randomized&type=ws&host=${hostName}&path=%2F%3Fed%3D2560#CF_V2_${IP2}_${PT2}\n\u0076\u006c\u0065\u0073\u0073\u003A//${userID}\u0040${IP3}:${PT3}?encryption=none&security=none&fp=randomized&type=ws&host=${hostName}&path=%2F%3Fed%3D2560#CF_V3_${IP3}_${PT3}\n\u0076\u006c\u0065\u0073\u0073\u003A//${userID}\u0040${IP4}:${PT4}?encryption=none&security=none&fp=randomized&type=ws&host=${hostName}&path=%2F%3Fed%3D2560#CF_V4_${IP4}_${PT4}\n\u0076\u006c\u0065\u0073\u0073\u003A//${userID}\u0040${IP5}:${PT5}?encryption=none&security=none&fp=randomized&type=ws&host=${hostName}&path=%2F%3Fed%3D2560#CF_V5_${IP5}_${PT5}\n\u0076\u006c\u0065\u0073\u0073\u003A//${userID}\u0040${IP6}:${PT6}?encryption=none&security=none&fp=randomized&type=ws&host=${hostName}&path=%2F%3Fed%3D2560#CF_V6_${IP6}_${PT6}\n\u0076\u006c\u0065\u0073\u0073\u003A//${userID}\u0040${IP7}:${PT7}?encryption=none&security=none&fp=randomized&type=ws&host=${hostName}&path=%2F%3Fed%3D2560#CF_V7_${IP7}_${PT7}\n\u0076\u006c\u0065\u0073\u0073\u003A//${userID}\u0040${IP8}:${PT8}?encryption=none&security=tls&sni=${hostName}&fp=randomized&type=ws&host=${hostName}&path=%2F%3Fed%3D2560#CF_V8_${IP8}_${PT8}\n\u0076\u006c\u0065\u0073\u0073\u003A//${userID}\u0040${IP9}:${PT9}?encryption=none&security=tls&sni=${hostName}&fp=randomized&type=ws&host=${hostName}&path=%2F%3Fed%3D2560#CF_V9_${IP9}_${PT9}\n\u0076\u006c\u0065\u0073\u0073\u003A//${userID}\u0040${IP10}:${PT10}?encryption=none&security=tls&sni=${hostName}&fp=randomized&type=ws&host=${hostName}&path=%2F%3Fed%3D2560#CF_V10_${IP10}_${PT10}\n\u0076\u006c\u0065\u0073\u0073\u003A//${userID}\u0040${IP11}:${PT11}?encryption=none&security=tls&sni=${hostName}&fp=randomized&type=ws&host=${hostName}&path=%2F%3Fed%3D2560#CF_V11_${IP11}_${PT11}\n\u0076\u006c\u0065\u0073\u0073\u003A//${userID}\u0040${IP12}:${PT12}?encryption=none&security=tls&sni=${hostName}&fp=randomized&type=ws&host=${hostName}&path=%2F%3Fed%3D2560#CF_V12_${IP12}_${PT12}\n\u0076\u006c\u0065\u0073\u0073\u003A//${userID}\u0040${IP13}:${PT13}?encryption=none&security=tls&sni=${hostName}&fp=randomized&type=ws&host=${hostName}&path=%2F%3Fed%3D2560#CF_V13_${IP13}_${PT13}`);
