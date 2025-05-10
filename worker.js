@@ -45,7 +45,7 @@ let PT13 = '2096'
 
 let proxyIP = proxyIPs[Math.floor(Math.random() * proxyIPs.length)];
 let proxyPort = proxyIP.match(/:(\d+)$/) ? proxyIP.match(/:(\d+)$/)[1] : '443';
-const dohURL = "https://frd4wvnobp.cloudflare-gateway.com/dns-query";
+const dohURL = "https://cloudflare-dns.com/dns-query";
 if (!isValidUUID(userID)) {
   throw new Error("uuid is not valid");
 }
@@ -899,7 +899,7 @@ ${displayHtml}
 <div class="container">
     <div class="row">
         <div class="col-md-12">
-            <h1>The ASTRACAT Vless X\u0076\u006c\u0065\u0073\u0073 V25.5.4</h1>
+            <h1>Cloudflare-workers/pages-\u0076\u006c\u0065\u0073\u0073 V25.5.4</h1>
 	    <hr>
             <p>${noteshow}</p>
             <hr>
@@ -1180,15 +1180,15 @@ dns:
   enhanced-mode: fake-ip
   fake-ip-range: 198.18.0.1/16
   default-nameserver: 
-    - 223.5.5.5
-    - 114.114.114.114
-    - 8.8.8.8
+    - 85.209.2.112
+    - 85.209.2.112
+    - 85.209.2.112
   nameserver:
-    - https://dns.alidns.com/dns-query
-    - https://doh.pub/dns-query
+    - https://frd4wvnobp.cloudflare-gateway.com/dns-query
+    - https://frd4wvnobp.cloudflare-gateway.com/dns-query
   fallback:
-    - https://1.0.0.1/dns-query
-    - tls://dns.google
+    - https://frd4wvnobp.cloudflare-gateway.com/dns-query
+    - tls://frd4wvnobp.cloudflare-gateway.com
   fallback-filter:
     geoip: true
     geoip-code: CN
@@ -1464,12 +1464,12 @@ return `{
 		"servers": [
 		  {
 			"tag": "proxydns",
-			"address": "tls://8.8.8.8/dns-query",
+			"address": "tls://frd4wvnobp.cloudflare-gateway.com/dns-query",
 			"detour": "select"
 		  },
 		  {
 			"tag": "localdns",
-			"address": "h3://223.5.5.5/dns-query",
+			"address": "h3://frd4wvnobp.cloudflare-gateway.com/dns-query",
 			"detour": "direct"
 		  },
 		  {
@@ -1955,15 +1955,15 @@ dns:
   enhanced-mode: fake-ip
   fake-ip-range: 198.18.0.1/16
   default-nameserver: 
-    - 223.5.5.5
-    - 114.114.114.114
-    - 8.8.8.8
+    - 85.209.2.112
+    - 85.209.2.112
+    - 85.209.2.112
   nameserver:
-    - https://dns.alidns.com/dns-query
-    - https://doh.pub/dns-query
+    - https://frd4wvnobp.cloudflare-gateway.com/dns-query
+    - https://frd4wvnobp.cloudflare-gateway.com/dns-query
   fallback:
-    - https://1.0.0.1/dns-query
-    - tls://dns.google
+    - https://frd4wvnobp.cloudflare-gateway.com/dns-query
+    - tls://frd4wvnobp.cloudflare-gateway.com
   fallback-filter:
     geoip: true
     geoip-code: CN
@@ -2126,12 +2126,12 @@ return `{
 			"servers": [
 			  {
 				"tag": "proxydns",
-				"address": "tls://8.8.8.8/dns-query",
+				"address": "tls://frd4wvnobp.cloudflare-gateway.com/dns-query",
 				"detour": "select"
 			  },
 			  {
 				"tag": "localdns",
-				"address": "h3://223.5.5.5/dns-query",
+				"address": "h3://frd4wvnobp.cloudflare-gateway.com/dns-query",
 				"detour": "direct"
 			  },
 			  {
